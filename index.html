@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rico Pan - Panadería Artesanal desde 1975</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --gold: #C9A961;
+            --gold-light: #E8D5A3;
+            --gold-dark: #9A7B3D;
+            --cream: #F5F0E8;
+            --cream-dark: #E8E0D5;
+            --brown: #4A3728;
+            --brown-light: #6B5344;
+            --white: #FFFFFF;
+            --shadow: rgba(74, 55, 40, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--cream);
+            color: var(--brown);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--cream) 0%, var(--cream-dark) 100%);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px var(--shadow);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            height: 70px;
+            width: auto;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .nav-contact {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .whatsapp-btn {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .hero {
+            margin-top: 100px;
+            padding: 80px 20px;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--gold-light) 50%, var(--cream) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-logo {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 30px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 10px 40px rgba(201, 169, 97, 0.4);
+            border: 5px solid var(--white);
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: var(--brown);
+            margin-bottom: 20px;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            color: var(--brown-light);
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--white);
+            padding: 10px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(201, 169, 97, 0.4);
+        }
+
+        .selector-section {
+            padding: 60px 20px;
+            background: var(--white);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .selector-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--brown);
+            margin-bottom: 15px;
+        }
+
+        .selector-subtitle {
+            text-align: center;
+            color: var(--brown-light);
+            margin-bottom: 50px;
+            font-size: 1.1rem;
+        }
+
+        .selector-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .selector-card {
+            background: linear-gradient(135deg, var(--cream) 0%, var(--white) 100%);
+            border: 3px solid transparent;
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .selector-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(201, 169, 97, 0.3);
+            border-color: var(--gold);
+        }
+
+        .selector-card .icon {
+            font-size: 3.5rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .selector-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--brown);
+            margin-bottom: 15px;
+        }
+
+        .selector-card p {
+            color: var(--brown-light);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .whatsapp-card-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #25D366;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .whatsapp-card-btn:hover {
+            background: #128C7E;
+            transform: scale(1.05);
+        }
+
+        .features-section {
+            padding: 60px 20px;
+            background: var(--white);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--gold-light) 0%, var(--cream) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            color: var(--gold-dark);
+            box-shadow: 0 5px 20px rgba(201, 169, 97, 0.2);
+        }
+
+        .feature-item h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--brown);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .feature-item p {
+            color: var(--brown-light);
+            font-size: 0.9rem;
+        }
+
+        .products-section {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, var(--cream-dark) 0%, var(--cream) 100%);
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--brown);
+            margin-bottom: 15px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--brown-light);
+            margin-bottom: 50px;
+            font-size: 1.2rem;
+        }
+
+        .price-banner {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            color: var(--white);
+            text-align: center;
+            padding: 25px;
+            border-radius: 15px;
+            max-width: 600px;
+            margin: 0 auto 50px;
+            box-shadow: 0 10px 30px rgba(201, 169, 97, 0.4);
+        }
+
+        .price-banner h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .price-banner .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px var(--shadow);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(201, 169, 97, 0.2);
+        }
+
+        .product-image {
+            height: 300px;
+            width: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 25px;
+            text-align: center;
+        }
+
+        .product-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--brown);
+            margin-bottom: 10px;
+        }
+
+        .product-info p {
+            color: var(--brown-light);
+            font-size: 0.9rem;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--gold);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .map-section {
+            padding: 80px 20px;
+            background: var(--white);
+        }
+
+        .map-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .map-wrapper {
+            background: linear-gradient(135deg, var(--cream) 0%, var(--cream-dark) 100%);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 60px var(--shadow);
+        }
+
+        .map-iframe-container {
+            width: 100%;
+            height: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .map-iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .zones-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .zone-card {
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .zone-card.active {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.3);
+        }
+
+        .zone-card.searching {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(201, 169, 97, 0.3);
+        }
+
+        .zone-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .zone-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        .zone-card p {
+            font-size: 0.95rem;
+            opacity: 0.95;
+        }
+
+        .zone-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .distributor-cta {
+            background: linear-gradient(135deg, var(--brown) 0%, var(--brown-light) 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .distributor-cta h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .distributor-cta p {
+            margin-bottom: 25px;
+            opacity: 0.9;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--gold);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(201, 169, 97, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(201, 169, 97, 0.5);
+        }
+
+        .cta-button.whatsapp {
+            background: #25D366;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .cta-button.whatsapp:hover {
+            background: #128C7E;
+            color: white;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+        }
+
+        .delivery-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .delivery-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--brown-light);
+        }
+
+        .delivery-item i {
+            color: var(--gold);
+            font-size: 1.2rem;
+        }
+
+        .contact-section {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, var(--cream-dark) 0%, var(--cream) 100%);
+        }
+
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 20px 60px var(--shadow);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--brown);
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 15px;
+            border: 2px solid var(--cream-dark);
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--cream);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            background: var(--white);
+            box-shadow: 0 0 0 4px rgba(201, 169, 97, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(201, 169, 97, 0.4);
+        }
+
+        footer {
+            background: linear-gradient(135deg, var(--brown) 0%, var(--brown-light) 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 3px solid var(--gold);
+        }
+
+        .footer-tagline {
+            opacity: 0.9;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .footer-contact {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-contact a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-contact a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .hero-logo { width: 150px; height: 150px; }
+            .selector-grid { grid-template-columns: 1fr; }
+            .form-grid { grid-template-columns: 1fr; }
+            .header-container { flex-direction: column; gap: 15px; }
+            .hero { margin-top: 140px; }
+            .contact-container { padding: 30px 20px; }
+            .map-iframe-container { height: 300px; }
+            .cta-buttons { flex-direction: column; align-items: center; }
+            .cta-button { width: 100%; max-width: 300px; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="logo-ricopan.png" alt="Rico Pan Logo" class="logo-img">
+                <span style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--brown);">Rico Pan</span>
+            </div>
+            <div class="nav-contact">
+                <a href="https://api.whatsapp.com/send/?phone=541160064201&text=Hola%20Rico%20Pan!%20Me%20interesa%20conocer%20m%C3%A1s%20sobre%20sus%20productos.&type=phone_number&app_absent=0&utm_source=ig" class="whatsapp-btn" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>Contactar por WhatsApp</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <img src="logo-ricopan.png" alt="Rico Pan Logo" class="hero-logo">
+            <div class="hero-badge">🥖 Desde 1975</div>
+            <h1>Pan Artesanal de Verdad</h1>
+            <p class="subtitle">Panes precocidos sin conservantes ni margarinas. Listos en minutos, perfectos para tu negocio.</p>
+        </div>
+    </section>
+
+    <section class="selector-section">
+        <div class="container">
+            <h2 class="selector-title">¿Cómo querés trabajar con nosotros?</h2>
+            <p class="selector-subtitle">Seleccioná la opción que mejor se adapte a tu negocio</p>
+            
+            <div class="selector-grid">
+                <div class="selector-card">
+                    <div class="icon"><i class="fas fa-store"></i></div>
+                    <h3>¿Sos Revendedor?</h3>
+                    <p>Comprá nuestros productos para revender en tu comercio, almacén o negocio gastronómico. Accedé a precios mayoristas y maximizá tu margen.</p>
+                    <a href="https://api.whatsapp.com/send/?phone=541160064201&text=Hola%20Rico%20Pan!%20Me%20interesa%20ser%20revendedor%20de%20sus%20productos.%20Mi%20negocio%20es:%20&type=phone_number&app_absent=0&utm_source=ig" class="whatsapp-card-btn" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                        Contactar como Revendedor
+                    </a>
+                </div>
+                
+                <div class="selector-card">
+                    <div class="icon"><i class="fas fa-truck"></i></div>
+                    <h3>¿Sos Distribuidor?</h3>
+                    <p>Convertite en distribuidor oficial de Rico Pan. Llevá nuestros productos a restaurantes, supermercados y negocios de tu zona.</p>
+                    <a href="https://api.whatsapp.com/send/?phone=541160064201&text=Hola%20Rico%20Pan!%20Me%20interesa%20ser%20distribuidor%20oficial.%20Tengo%20experiencia%20en:%20&type=phone_number&app_absent=0&utm_source=ig" class="whatsapp-card-btn" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                        Contactar como Distribuidor
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-section">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🌾</div>
+                    <h4>Sin Conservantes</h4>
+                    <p>Ingredientes naturales, sin químicos ni margarinas</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <h4>Listo en Minutos</h4>
+                    <p>Precocido para hornear y servir al instante</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💰</div>
+                    <h4>Precio Imbatible</h4>
+                    <p>Mismo precio para todos los modelos</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📅</div>
+                    <h4>Entregas Lunes a Sábado</h4>
+                    <p>Consultá por tu zona de distribución</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="products-section" id="productos">
+        <div class="container">
+            <h2 class="section-title">Nuestros Productos</h2>
+            <p class="section-subtitle">6 modelos de pan, todos al mismo precio</p>
+            
+            <div class="price-banner">
+                <h3>Bolsa de 1kg</h3>
+                <div class="price">$12.000</div>
+                <p style="margin-top: 10px; opacity: 0.9;">Mismo precio para todos los modelos</p>
+            </div>
+
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-badge">Clásico</div>
+                    <img src="pan-felipe.png" alt="Pan Felipe" class="product-image">
+                    <div class="product-info">
+                        <h3>Pan Felipe</h3>
+                        <p>Pan tradicional argentino, perfecto para sandwiches</p>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-badge">Saludable</div>
+                    <img src="pan-salvado.png" alt="Pan de Salvado" class="product-image">
+                    <div class="product-info">
+                        <h3>Pan de Salvado</h3>
+                        <p>Con fibra de salvado, opción más saludable</p>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="pan-flautita.png" alt="Flautita" class="product-image">
+                    <div class="product-info">
+                        <h3>Flautita</h3>
+                        <p>Ideal para sandwiches individuales y porciones</p>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="pan-galleta.png" alt="Galleta de Campo" class="product-image">
+                    <div class="product-info">
+                        <h3>Galleta de Campo</h3>
+                        <p>Textura única, perfecto para tostadas</p>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-badge">Popular</div>
+                    <img src="pan-baguette.png" alt="Baguette" class="product-image">
+                    <div class="product-info">
+                        <h3>Baguette</h3>
+                        <p>El clásico francés, crujiente por fuera y suave por dentro</p>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-badge">Mini</div>
+                    <img src="pan-mignon.png" alt="Mignon" class="product-image">
+                    <div class="product-info">
+                        <h3>Mignon</h3>
+                        <p>Pequeño formato, ideal para eventos y catering</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="map-section" id="zonas">
+        <div class="container">
+            <h2 class="section-title">Zonas de Distribución</h2>
+            <p class="section-subtitle">Cobertura en Buenos Aires y Gran La Plata</p>
+            
+            <div class="map-container">
+                <div class="map-wrapper">
+                    <div class="map-iframe-container">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d105073.26483391735!2d-58.50333812210938!3d-34.61580373557794!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcca3b4ef90cbd%3A0xa0b3812e88e88e87!2sBuenos%20Aires%2C%20CABA!5e0!3m2!1ses!2sar!4v1708617600000!5m2!1ses!2sar" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+
+                    <div class="zones-info">
+                        <div class="zone-card active">
+                            <span class="zone-badge">COBERTURA ACTIVA</span>
+                            <div class="zone-icon">🚚</div>
+                            <h4>Zona Oeste</h4>
+                            <p>Entregas diarias con cobertura completa</p>
+                        </div>
+                        
+                        <div class="zone-card active">
+                            <span class="zone-badge">COBERTURA ACTIVA</span>
+                            <div class="zone-icon">🚛</div>
+                            <h4>Zona Sur</h4>
+                            <p>La Plata, Berisso y alrededores</p>
+                        </div>
+                        
+                        <div class="zone-card searching">
+                            <span class="zone-badge">BUSCANDO DISTRIBUIDORES</span>
+                            <div class="zone-icon">🤝</div>
+                            <h4>Zona Norte</h4>
+                            <p>¿Querés ser distribuidor? Sumate al equipo</p>
+                        </div>
+                        
+                        <div class="zone-card searching">
+                            <span class="zone-badge">BUSCANDO DISTRIBUIDRES</span>
+                            <div class="zone-icon">🏙️</div>
+                            <h4>CABA</h4>
+                            <p>Buscamos distribuidores en toda la ciudad</p>
+                        </div>
+                    </div>
+
+                    <div class="distributor-cta">
+                        <h3>¿Sos distribuidor? Trabajá con nosotros</h3>
+                        <p>Estamos expandiendo nuestra red de distribución. Si tenés experiencia en el rubro alimenticio y querés representar una marca con 40+ años de trayectoria, contactanos.</p>
+                        <div class="cta-buttons">
+                            <a href="https://api.whatsapp.com/send/?phone=541160064201&text=Hola%20Rico%20Pan!%20Me%20interesa%20ser%20revendedor%20de%20sus%20productos.%20Mi%20negocio%20es:%20&type=phone_number&app_absent=0&utm_source=ig" class="cta-button whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i>
+                                Quiero ser Revendedor
+                            </a>
+                            <a href="https://api.whatsapp.com/send/?phone=541160064201&text=Hola%20Rico%20Pan!%20Me%20interesa%20ser%20distribuidor%20oficial.%20Tengo%20experiencia%20en:%20&type=phone_number&app_absent=0&utm_source=ig" class="cta-button whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i>
+                                Quiero ser Distribuidor
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="delivery-info">
+                        <div class="delivery-item">
+                            <i class="fas fa-calendar-check"></i>
+                            <span>Entregas de Lunes a Sábados</span>
+                        </div>
+                        <div class="delivery-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Consultá por tu zona</span>
+                        </div>
+                        <div class="delivery-item">
+                            <i class="fas fa-box"></i>
+                            <span>Bolsas de 1kg</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section" id="contacto">
+        <div class="container">
+            <h2 class="section-title">Contacto</h2>
+            <p class="section-subtitle">Completá el formulario y te contactamos a la brevedad</p>
+            
+            <div class="contact-container">
+                <form id="contact-form" onsubmit="event.preventDefault(); alert('¡Mensaje enviado! Te contactaremos a la brevedad.'); this.reset();">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="nombre">Nombre completo *</label>
+                            <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="telefono">Teléfono *</label>
+                            <input type="tel" id="telefono" name="telefono" required placeholder="11 6006-4201">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="tu@email.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="negocio">Nombre del negocio</label>
+                            <input type="text" id="negocio" name="negocio" placeholder="Nombre de tu comercio">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="zona">Zona *</label>
+                            <select id="zona" name="zona" required>
+                                <option value="">Seleccioná tu zona</option>
+                                <option value="zona-oeste">Zona Oeste</option>
+                                <option value="zona-sur">Zona Sur (La Plata/Berisso)</option>
+                                <option value="zona-norte">Zona Norte</option>
+                                <option value="caba">CABA</option>
+                                <option value="otra">Otra</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="tipo">Tipo de operación *</label>
+                            <select id="tipo" name="tipo" required>
+                                <option value="">Seleccioná una opción</option>
+                                <option value="almacen">Almacén</option>
+                                <option value="restaurant">Restaurant/Bar</option>
+                                <option value="supermercado">Supermercado</option>
+                                <option value="panaderia">Panadería</option>
+                                <option value="distribuidor">Distribuidor/Mayorista</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="mensaje">Mensaje</label>
+                            <textarea id="mensaje" name="mensaje" placeholder="Contanos más sobre tu negocio y qué productos te interesan..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i>
+                        Enviar consulta
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <img src="logo.png" alt="Rico Pan Logo" class="footer-logo">
+            <p class="footer-tagline">Panadería artesanal sin conservantes ni margarinas desde 1975</p>
+            
+            <div class="footer-contact">
+                <a href="tel:+5491160064201">
+                    <i class="fas fa-phone"></i>
+                    <span>+54 9 11 6006-4201</span>
+                </a>
+                <a href="https://www.instagram.com/ricopan.ba" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                    <span>@ricopan.ba</span>
+                </a>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>Desde 1975 | © Rico Pan | Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
