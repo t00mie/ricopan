@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rico Pan — Panadería Artesanal desde 1975</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --tierra: #5C4033;
+            --tierra-claro: #8B6914;
+            --trigo: #D4A574;
+            --trigo-suave: #E8D4C4;
+            --crema: #FDF8F3;
+            --crema-oscura: #F5EDE4;
+            --dorado: #C9A961;
+            --pan-tostado: #B8956A;
+            --texto: #3D2914;
+            --texto-claro: #6B4423;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--crema);
+            color: var(--texto);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        /* Splash Screen */
+        .splash-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(160deg, var(--crema) 0%, var(--trigo-suave) 50%, var(--crema-oscura) 100%);
+            z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            padding: 20px; transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+        .splash-screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        
+        .splash-logo {
+            width: 200px; height: 200px; border-radius: 50%; object-fit: cover; margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(92, 64, 51, 0.2), 0 0 0 8px var(--crema), 0 0 0 10px var(--trigo);
+            animation: breathe 4s ease-in-out infinite;
+        }
+        @keyframes breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
+        
+        .splash-welcome {
+            font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--texto-claro);
+            font-style: italic; margin-bottom: 10px; letter-spacing: 2px;
+        }
+        .splash-title {
+            font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; color: var(--tierra);
+            margin-bottom: 15px; font-weight: 600; letter-spacing: -1px;
+        }
+        .splash-line { width: 60px; height: 2px; background: var(--trigo); margin: 0 auto 30px; }
+        .splash-question {
+            font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--texto);
+            margin-bottom: 40px; font-weight: 400;
+        }
+        .splash-options {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;
+            max-width: 650px; width: 100%;
+        }
+        .splash-option {
+            background: var(--crema); border: 2px solid transparent; border-radius: 20px;
+            padding: 45px 35px; text-align: center; cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(92, 64, 51, 0.08);
+        }
+        .splash-option:hover {
+            transform: translateY(-8px); border-color: var(--trigo);
+            box-shadow: 0 20px 50px rgba(92, 64, 51, 0.15);
+        }
+        .splash-option .icon-wrap {
+            width: 80px; height: 80px; background: var(--trigo-suave); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; margin: 0 auto 25px;
+            transition: all 0.3s ease;
+        }
+        .splash-option:hover .icon-wrap { background: var(--trigo); transform: scale(1.1); }
+        .splash-option .icon { font-size: 2rem; color: var(--tierra); }
+        .splash-option:hover .icon { color: var(--crema); }
+        .splash-option h3 {
+            font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--tierra);
+            margin-bottom: 12px; font-weight: 600;
+        }
+        .splash-option p { color: var(--texto-claro); font-size: 0.95rem; line-height: 1.6; }
+        .splash-footer {
+            margin-top: 50px; color: var(--texto-claro); font-size: 0.9rem; font-style: italic;
+        }
+
+        /* Main Content */
+        .main-content { opacity: 0; transition: opacity 0.6s ease; }
+        .main-content.visible { opacity: 1; }
+
+        /* Header */
+        header {
+            background: rgba(253, 248, 243, 0.95); backdrop-filter: blur(10px);
+            padding: 18px 0; position: fixed; width: 100%; top: 0; z-index: 1000;
+            border-bottom: 1px solid var(--trigo-suave);
+        }
+        .header-container {
+            max-width: 1200px; margin: 0 auto; padding: 0 30px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo { display: flex; align-items: center; gap: 12px; }
+        .logo-img { height: 50px; width: 50px; border-radius: 50%; object-fit: cover; border: 2px solid var(--trigo); }
+        .logo-text {
+            font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--tierra); font-weight: 600;
+        }
+        .header-actions { display: flex; align-items: center; gap: 15px; }
+        .user-type-badge {
+            background: var(--trigo-suave); color: var(--tierra); padding: 10px 20px;
+            border-radius: 30px; font-size: 0.85rem; font-weight: 500;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .change-type-btn {
+            background: transparent; border: 1.5px solid var(--trigo); color: var(--tierra);
+            padding: 10px 18px; border-radius: 30px; font-size: 0.8rem; font-weight: 500;
+            cursor: pointer; transition: all 0.3s ease; font-family: 'DM Sans', sans-serif;
+        }
+        .change-type-btn:hover { background: var(--trigo); color: var(--crema); }
+
+        /* Hero - CENTRADO CORRECTAMENTE */
+        .hero {
+            margin-top: 85px; padding: 100px 30px 80px;
+            background: linear-gradient(170deg, var(--crema-oscura) 0%, var(--crema) 50%, var(--trigo-suave) 100%);
+            text-align: center; position: relative; overflow: hidden;
+        }
+        .hero::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--trigo), transparent);
+        }
+        .hero-content {
+            position: relative; z-index: 1; max-width: 700px; margin: 0 auto;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .hero-badge-wrap {
+            display: flex; flex-direction: column; align-items: center; margin-bottom: 30px;
+        }
+        .hero-logo {
+            width: 160px; height: 160px; border-radius: 50%; object-fit: cover; margin-bottom: 20px;
+            box-shadow: 0 15px 50px rgba(92, 64, 51, 0.15), 0 0 0 6px var(--crema), 0 0 0 8px var(--trigo);
+        }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 10px; background: var(--crema);
+            color: var(--tierra); padding: 12px 28px; border-radius: 40px;
+            font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-style: italic;
+            border: 1.5px solid var(--trigo); box-shadow: 0 4px 15px rgba(92, 64, 51, 0.08);
+        }
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif; font-size: 3.8rem; color: var(--tierra);
+            margin-bottom: 20px; font-weight: 600; line-height: 1.2;
+        }
+        .hero .subtitle {
+            font-size: 1.25rem; color: var(--texto-claro); max-width: 550px; margin: 0 auto; font-weight: 400;
+        }
+
+        /* Features */
+        .features-section {
+            padding: 70px 30px; background: var(--crema);
+            border-top: 1px solid var(--trigo-suave); border-bottom: 1px solid var(--trigo-suave);
+        }
+        .features-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; max-width: 1000px; margin: 0 auto;
+        }
+        .feature-item { text-align: center; padding: 20px; }
+        .feature-icon {
+            width: 60px; height: 60px; background: var(--trigo-suave); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;
+            font-size: 1.5rem; color: var(--tierra); transition: all 0.3s ease;
+        }
+        .feature-item:hover .feature-icon { background: var(--trigo); color: var(--crema); transform: translateY(-5px); }
+        .feature-item h4 {
+            font-family: 'Cormorant Garamond', serif; color: var(--tierra); margin-bottom: 8px;
+            font-size: 1.3rem; font-weight: 600;
+        }
+        .feature-item p { color: var(--texto-claro); font-size: 0.9rem; line-height: 1.5; }
+
+        /* Products - GRILLA 3x3 */
+        .products-section {
+            padding: 100px 30px; background: linear-gradient(180deg, var(--crema) 0%, var(--crema-oscura) 100%);
+        }
+        .section-header { text-align: center; max-width: 600px; margin: 0 auto 50px; }
+        .section-label {
+            font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--trigo);
+            text-transform: uppercase; letter-spacing: 3px; margin-bottom: 15px;
+        }
+        .section-title {
+            font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: var(--tierra);
+            margin-bottom: 15px; font-weight: 600;
+        }
+        .section-subtitle { color: var(--texto-claro); font-size: 1.1rem; }
+        
+        .price-card {
+            background: var(--tierra); color: var(--crema); text-align: center;
+            padding: 35px 50px; border-radius: 20px; max-width: 450px; margin: 0 auto 60px;
+            box-shadow: 0 20px 50px rgba(92, 64, 51, 0.2);
+        }
+        .price-label { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; margin-bottom: 10px; opacity: 0.9; }
+        .price-amount { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 600; margin-bottom: 10px; }
+        .price-note { font-size: 0.95rem; opacity: 0.8; }
+
+        .products-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 35px; max-width: 1100px; margin: 0 auto;
+        }
+        .product-card {
+            background: var(--crema); border-radius: 24px; overflow: hidden;
+            box-shadow: 0 8px 30px rgba(92, 64, 51, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative; border: 1px solid var(--trigo-suave);
+        }
+        .product-card:hover {
+            transform: translateY(-10px); box-shadow: 0 25px 60px rgba(92, 64, 51, 0.15);
+            border-color: var(--trigo);
+        }
+        .product-image-wrap { position: relative; overflow: hidden; height: 280px; }
+        .product-image { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .product-card:hover .product-image { transform: scale(1.08); }
+        .product-badge {
+            position: absolute; top: 20px; right: 20px; background: var(--crema); color: var(--tierra);
+            padding: 8px 16px; border-radius: 20px; font-size: 0.75rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 1px; border: 1px solid var(--trigo);
+        }
+        .product-info { padding: 28px; text-align: center; }
+        .product-info h3 {
+            font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--tierra);
+            margin-bottom: 10px; font-weight: 600;
+        }
+        .product-info p { color: var(--texto-claro); font-size: 0.95rem; line-height: 1.5; }
+
+        /* Zones - SIN MAPA, 4 TARJETAS */
+        .zones-section { padding: 100px 30px; background: var(--crema); }
+        .zones-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; max-width: 1100px; margin: 0 auto 50px;
+        }
+        .zone-card {
+            padding: 40px 25px; border-radius: 20px; text-align: center;
+            transition: all 0.4s ease; position: relative; overflow: hidden;
+        }
+        .zone-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.3;
+        }
+        .zone-card.active {
+            background: linear-gradient(135deg, #7A9E7E 0%, #5C8D6D 100%); color: var(--crema);
+            box-shadow: 0 15px 40px rgba(92, 141, 109, 0.25);
+        }
+        .zone-card.searching {
+            background: linear-gradient(135deg, var(--trigo) 0%, var(--pan-tostado) 100%); color: var(--crema);
+            box-shadow: 0 15px 40px rgba(184, 149, 106, 0.25);
+        }
+        .zone-icon { font-size: 2.5rem; margin-bottom: 20px; position: relative; }
+        .zone-card h4 {
+            font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; margin-bottom: 12px;
+            position: relative; font-weight: 600;
+        }
+        .zone-card p { font-size: 0.95rem; opacity: 0.95; position: relative; line-height: 1.5; }
+        .zone-tag {
+            display: inline-block; background: rgba(255,255,255,0.2); padding: 6px 14px;
+            border-radius: 20px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 1.5px; margin-bottom: 15px; position: relative;
+        }
+
+        /* Delivery Info - MEJORADO */
+        .delivery-bar {
+            background: var(--crema-oscura); border-radius: 16px; padding: 30px 40px;
+            max-width: 900px; margin: 0 auto; border: 1px solid var(--trigo-suave);
+        }
+        .delivery-grid {
+            display: flex; justify-content: space-around; align-items: center; gap: 30px; flex-wrap: wrap;
+        }
+        .delivery-item { display: flex; align-items: center; gap: 15px; color: var(--texto); }
+        .delivery-icon-wrap {
+            width: 50px; height: 50px; background: var(--crema); border-radius: 12px;
+            display: flex; align-items: center; justify-content: center; border: 1px solid var(--trigo);
+        }
+        .delivery-icon-wrap i { color: var(--tierra); font-size: 1.2rem; }
+        .delivery-text { text-align: left; }
+        .delivery-label {
+            font-size: 0.8rem; color: var(--texto-claro); text-transform: uppercase;
+            letter-spacing: 1px; margin-bottom: 4px;
+        }
+        .delivery-value {
+            font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--tierra); font-weight: 600;
+        }
+
+        /* CTA */
+        .cta-section {
+            padding: 100px 30px; background: linear-gradient(135deg, var(--tierra) 0%, var(--tierra-claro) 100%);
+            color: var(--crema); text-align: center; position: relative; overflow: hidden;
+        }
+        .cta-section::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+        .cta-container { max-width: 700px; margin: 0 auto; position: relative; z-index: 1; }
+        .cta-label {
+            font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-style: italic;
+            opacity: 0.8; margin-bottom: 15px;
+        }
+        .cta-section h2 {
+            font-family: 'Cormorant Garamond', serif; font-size: 3rem; margin-bottom: 20px; font-weight: 600;
+        }
+        .cta-section p { opacity: 0.9; margin-bottom: 40px; font-size: 1.15rem; line-height: 1.6; }
+        .cta-button {
+            display: inline-flex; align-items: center; gap: 12px; background: var(--crema); color: var(--tierra);
+            padding: 22px 45px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 1.1rem;
+            transition: all 0.4s ease; box-shadow: 0 10px 40px rgba(0,0,0,0.2); border: 2px solid transparent;
+        }
+        .cta-button:hover {
+            transform: translateY(-3px); box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+            background: transparent; color: var(--crema); border-color: var(--crema);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--tierra); color: var(--crema); padding: 60px 30px 40px; text-align: center;
+        }
+        .footer-content { max-width: 600px; margin: 0 auto; }
+        .footer-logo {
+            width: 90px; height: 90px; border-radius: 50%; object-fit: cover; margin-bottom: 25px;
+            border: 3px solid var(--trigo); box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .footer-tagline {
+            font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; margin-bottom: 30px;
+            opacity: 0.9; font-style: italic;
+        }
+        .footer-contact { display: flex; justify-content: center; gap: 40px; margin-bottom: 40px; }
+        .footer-contact a {
+            color: var(--crema); text-decoration: none; display: flex; align-items: center; gap: 10px;
+            transition: all 0.3s ease; font-size: 0.95rem; opacity: 0.9;
+        }
+        .footer-contact a:hover { color: var(--trigo); opacity: 1; }
+        .footer-line { width: 40px; height: 1px; background: var(--trigo); margin: 0 auto 30px; }
+        .footer-bottom {
+            font-family: 'Cormorant Garamond', serif; font-size: 1rem; opacity: 0.7; letter-spacing: 1px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .products-grid { grid-template-columns: repeat(2, 1fr); }
+            .zones-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .splash-title { font-size: 2.5rem; }
+            .splash-options { grid-template-columns: 1fr; max-width: 400px; }
+            .splash-option { padding: 35px 25px; }
+            .hero { padding: 80px 20px 60px; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero-logo { width: 130px; height: 130px; }
+            .features-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+            .products-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+            .product-image-wrap { height: 220px; }
+            .section-title { font-size: 2.2rem; }
+            .zones-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .zone-card { padding: 30px 15px; }
+            .delivery-grid { flex-direction: column; gap: 20px; }
+            .delivery-item { width: 100%; justify-content: center; }
+            .cta-section h2 { font-size: 2.2rem; }
+            .cta-button { padding: 18px 35px; font-size: 1rem; }
+            .header-container { padding: 0 20px; }
+            .user-type-badge { display: none; }
+        }
+        @media (max-width: 480px) {
+            .products-grid { grid-template-columns: 1fr; }
+            .features-grid { grid-template-columns: 1fr; }
+            .zones-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Splash Screen -->
+    <div class="splash-screen" id="splashScreen">
+        <div class="splash-logo-container">
+            <img src="logo.png" alt="Rico Pan" class="splash-logo">
+        </div>
+        <p class="splash-welcome">Bienvenido a</p>
+        <h1 class="splash-title">Rico Pan</h1>
+        <div class="splash-line"></div>
+        <p class="splash-question">¿Cómo querés trabajar con nosotros?</p>
+        <div class="splash-options">
+            <div class="splash-option" onclick="selectUserType('revendedor')">
+                <div class="icon-wrap"><i class="fas fa-store icon"></i></div>
+                <h3>Quiero ser Revendedor</h3>
+                <p>Comprá nuestros productos para revender en tu comercio o negocio gastronómico</p>
+            </div>
+            <div class="splash-option" onclick="selectUserType('distribuidor')">
+                <div class="icon-wrap"><i class="fas fa-truck icon"></i></div>
+                <h3>Quiero ser Distribuidor</h3>
+                <p>Convertite en distribuidor oficial y llevá nuestros productos a tu zona</p>
+            </div>
+        </div>
+        <p class="splash-footer">Panadería artesanal sin conservantes ni margarinas — Desde 1975</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        
+        <header>
+            <div class="header-container">
+                <div class="logo">
+                    <img src="logo.png" alt="Rico Pan" class="logo-img">
+                    <span class="logo-text">Rico Pan</span>
+                </div>
+                <div class="header-actions">
+                    <div class="user-type-badge" id="userTypeBadge"><i class="fas fa-store"></i><span>Revendedor</span></div>
+                    <button class="change-type-btn" onclick="showSplashScreen()">Cambiar</button>
+                </div>
+            </div>
+        </header>
+
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-badge-wrap">
+                    <img src="logo.png" alt="Rico Pan" class="hero-logo">
+                    <div class="hero-badge"><span>🥖</span><span>Desde 1975</span></div>
+                </div>
+                <h1>Pan Artesanal<br>de Verdad</h1>
+                <p class="subtitle">Panes precocidos sin conservantes ni margarinas. Listos en minutos, perfectos para tu negocio.</p>
+            </div>
+        </section>
+
+        <section class="features-section">
+            <div class="features-grid">
+                <div class="feature-item"><div class="feature-icon">🌾</div><h4>100% Natural</h4><p>Sin conservantes ni químicos</p></div>
+                <div class="feature-item"><div class="feature-icon">⚡</div><h4>Listo al Instante</h4><p>Precocido para hornear</p></div>
+                <div class="feature-item"><div class="feature-icon">💰</div><h4>Precio Justo</h4><p>Mismo precio todos los modelos</p></div>
+                <div class="feature-item"><div class="feature-icon">📅</div><h4>Entregas Diarias</h4><p>De lunes a sábado</p></div>
+            </div>
+        </section>
+
+        <section class="products-section" id="productos">
+            <div class="section-header">
+                <p class="section-label">Nuestros Productos</p>
+                <h2 class="section-title">Seis variedades,<br>un solo precio</h2>
+                <p class="section-subtitle">Elige el pan perfecto para tu negocio</p>
+            </div>
+            <div class="price-card">
+                <p class="price-label">Bolsa de 1 kg</p>
+                <p class="price-amount">$12.000</p>
+                <p class="price-note">Mismo precio para todos los modelos</p>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image-wrap"><span class="product-badge">Clásico</span><img src="pan-felipe.png" alt="Pan Felipe" class="product-image"></div>
+                    <div class="product-info"><h3>Pan Felipe</h3><p>El tradicional argentino, perfecto para sandwiches de autor</p></div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image-wrap"><span class="product-badge">Saludable</span><img src="pan-salvado.png" alt="Pan de Salvado" class="product-image"></div>
+                    <div class="product-info"><h3>Pan de Salvado</h3><p>Con fibra natural, la opción más saludable para tu mesa</p></div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image-wrap"><img src="pan-flautita.png" alt="Flautita" class="product-image"></div>
+                    <div class="product-info"><h3>Flautita</h3><p>Ideal para sandwiches individuales y porciones perfectas</p></div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image-wrap"><img src="pan-galleta.png" alt="Galleta de Campo" class="product-image"></div>
+                    <div class="product-info"><h3>Galleta de Campo</h3><p>Textura artesanal única, excelente para tostadas</p></div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image-wrap"><span class="product-badge">Popular</span><img src="pan-baguette.png" alt="Baguette" class="product-image"></div>
+                    <div class="product-info"><h3>Baguette</h3><p>El clásico francés: crujiente por fuera, suave por dentro</p></div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image-wrap"><span class="product-badge">Mini</span><img src="pan-mignon.png" alt="Mignon" class="product-image"></div>
+                    <div class="product-info"><h3>Mignon</h3><p>Pequeño formato, ideal para eventos y catering premium</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="zones-section" id="zonas">
+            <div class="section-header">
+                <p class="section-label">Cobertura</p>
+                <h2 class="section-title">¿Dónde estamos?</h2>
+                <p class="section-subtitle">Zonas de distribución en Buenos Aires</p>
+            </div>
+            <div class="zones-grid">
+                <div class="zone-card active"><div class="zone-icon">🚚</div><h4>Zona Oeste</h4><p>Cobertura completa</p></div>
+                <div class="zone-card active"><div class="zone-icon">🚛</div><h4>Zona Sur</h4><p>Cobertura completa</p></div>
+                <div class="zone-card searching"><span class="zone-tag">Buscando</span><div class="zone-icon">🤝</div><h4>Zona Norte</h4><p>¿Sos distribuidor?<br>Sumate al equipo</p></div>
+                <div class="zone-card searching"><span class="zone-tag">Buscando</span><div class="zone-icon">🏙️</div><h4>CABA</h4><p>¿Sos distribuidor?<br>Sumate al equipo</p></div>
+            </div>
+            <div class="delivery-bar">
+                <div class="delivery-grid">
+                    <div class="delivery-item"><div class="delivery-icon-wrap"><i class="fas fa-calendar-check"></i></div><div class="delivery-text"><p class="delivery-label">Horario</p><p class="delivery-value">Lunes a Sábados</p></div></div>
+                    <div class="delivery-item"><div class="delivery-icon-wrap"><i class="fas fa-map-marker-alt"></i></div><div class="delivery-text"><p class="delivery-label">Zonas</p><p class="delivery-value">Consultá tu área</p></div></div>
+                    <div class="delivery-item"><div class="delivery-icon-wrap"><i class="fas fa-box"></i></div><div class="delivery-text"><p class="delivery-label">Presentación</p><p class="delivery-value">Bolsas de 1 kg</p></div></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="cta-container">
+                <p class="cta-label">¿Listo para empezar?</p>
+                <h2 id="ctaTitle">Sumate como revendedor<br>de Rico Pan</h2>
+                <p id="ctaText">Escribinos por WhatsApp y te contamos todo sobre precios mayoristas, condiciones y cómo empezar a vender el mejor pan artesanal.</p>
+                <a href="#" class="cta-button" id="ctaButton" target="_blank"><i class="fab fa-whatsapp"></i><span id="ctaButtonText">Quiero ser Revendedor</span></a>
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-content">
+                <img src="logo.png" alt="Rico Pan" class="footer-logo">
+                <p class="footer-tagline">"El pan que une a la familia desde 1975"</p>
+                <div class="footer-line"></div>
+                <div class="footer-contact">
+                    <a href="tel:+5491160064201"><i class="fas fa-phone"></i><span>+54 9 11 6006-4201</span></a>
+                    <a href="https://www.instagram.com/ricopan.ba" target="_blank"><i class="fab fa-instagram"></i><span>@ricopan.ba</span></a>
+                </div>
+                <p class="footer-bottom">Desde 1975 &nbsp;|&nbsp; © Rico Pan &nbsp;|&nbsp; Todos los derechos reservados</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        const config = {
+            revendedor: {
+                url: 'https://api.whatsapp.com/send/?phone=541160064201&text=Hola%20Rico%20Pan!%20Me%20interesa%20ser%20revendedor%20de%20sus%20productos.%20Mi%20negocio%20es:%20&type=phone_number&app_absent=0&utm_source=ig',
+                badgeText: 'Revendedor', badgeIcon: 'fa-store',
+                ctaTitle: 'Sumate como revendedor<br>de Rico Pan',
+                ctaText: 'Escribinos por WhatsApp y te contamos todo sobre precios mayoristas, condiciones y cómo empezar a vender el mejor pan artesanal.',
+                ctaButtonText: 'Quiero ser Revendedor'
+            },
+            distribuidor: {
+                url: 'https://api.whatsapp.com/send/?phone=541160064201&text=Hola%20Rico%20Pan!%20Me%20interesa%20ser%20distribuidor%20oficial.%20Tengo%20experiencia%20en:%20&type=phone_number&app_absent=0&utm_source=ig',
+                badgeText: 'Distribuidor', badgeIcon: 'fa-truck',
+                ctaTitle: 'Convertite en distribuidor<br>oficial de Rico Pan',
+                ctaText: 'Escribinos por WhatsApp y te contamos todo sobre cómo sumarte a nuestra red de distribución, requisitos y beneficios.',
+                ctaButtonText: 'Quiero ser Distribuidor'
+            }
+        };
+
+        function selectUserType(type) {
+            const cfg = config[type];
+            document.getElementById('userTypeBadge').innerHTML = `<i class="fas ${cfg.badgeIcon}"></i><span>${cfg.badgeText}</span>`;
+            document.getElementById('ctaTitle').innerHTML = cfg.ctaTitle;
+            document.getElementById('ctaText').textContent = cfg.ctaText;
+            document.getElementById('ctaButtonText').textContent = cfg.ctaButtonText;
+            document.getElementById('ctaButton').href = cfg.url;
+            document.getElementById('splashScreen').classList.add('hidden');
+            document.getElementById('mainContent').classList.add('visible');
+            window.scrollTo(0, 0);
+        }
+
+        function showSplashScreen() {
+            document.getElementById('splashScreen').classList.remove('hidden');
+            document.getElementById('mainContent').classList.remove('visible');
+        }
+    </script>
+
+</body>
+</html>
